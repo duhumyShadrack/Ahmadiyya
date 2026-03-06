@@ -1,0 +1,35 @@
+name: Coverage Report
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout repo
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      # Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Run tests with coverage
+      - name: Run Jest Coverage
+        run: npm test -- --coverage
+
+      # Upload coverage to Codecov
+      - name: Upload coverage
